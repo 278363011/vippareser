@@ -1,5 +1,6 @@
 {
     "pages": [ //pages数组中第一项表示应用启动页,
+		
         {
             "path": "pages/main/main",
             "style": {
@@ -8,7 +9,7 @@
         }, {
             "path": "pages/login/login",
             "style": {
-                "navigationBarTitleText": "登录"
+                "navigationBarTitleText": "搜索"
             }
         }, {
             "path": "pages/reg/reg",
@@ -23,9 +24,16 @@
         }, {
             "path": "pages/user/user",
             "style": {
-                "navigationBarTitleText": "我的"
+                "navigationBarTitleText": "登录"
             }
-        }
+        },
+		{
+			"path" : "pages/play/play",
+			"style" : {
+				"navigationBarTitleText": "播放界面"
+			}
+		}
+        
     ],
     "tabBar": {
         "color": "#7a7e83",
