@@ -82,56 +82,48 @@
 			</view>
 		</uni-drawer>
 
-		<scroll-view scroll-y="true" scroll-top class="content-list">
-			<view  class="fragment-header">爱奇艺</view>
+		<scroll-view scroll-y="true"  class="content-list">
+			
+<!-- 			<view  class="fragment-header">爱奇艺</view>
 			<view id="aiqiyi" class="fragment">
 				<button class="fragment-item">1</button>
-				<button class="fragment-item">2</button>
-				<button class="fragment-item">3</button>
-				<button class="fragment-item">10</button>
-				<button class="fragment-item">11</button>
-				<button class="fragment-item">38</button>
-				<button class="fragment-item">第一集</button>
-				<button class="fragment-item">第二集</button>
-				<button class="fragment-item">第三集</button>
-				<button class="fragment-item">1</button>
-				<button class="fragment-item">2</button>
-				<button class="fragment-item">3</button>
-				<button class="fragment-item">第一集</button>
-				<button class="fragment-item">第二集</button>
-				<button class="fragment-item">第三集</button>
-				<button class="fragment-item">1</button>
-				<button class="fragment-item">2</button>
-				<button class="fragment-item">3</button>
-				<button class="fragment-item">第一集</button>
-				<button class="fragment-item">第二集</button>
-				<button class="fragment-item">第三集</button>
-				<button class="fragment-item">1</button>
-				<button class="fragment-item">2</button>
-				<button class="fragment-item">3</button>
-				<button class="fragment-item">第一集</button>
-				<button class="fragment-item">第二集</button>
-				<button class="fragment-item">第三集</button>
 			</view>
+			
 			<view id="tengxun">
 				<view  class="fragment-header">腾讯视频</view>
 				<uni-tag text="无资源"></uni-tag>
-			</view>
-			<view id="manggo">
-				<view  class="fragment-header">芒果TV</view>
-				<uni-tag text="无资源"></uni-tag>
-			</view>
-			<view id="youku">
-				<view  class="fragment-header">优酷</view>
-				<uni-tag text="无资源"></uni-tag>
-			</view>
+			</view> -->
+			
+		<!-- 	<view v-for="(item,index) in searchResult" :key="item.id">
+				<view  v-if="index=='aiqiyiSearch'">
+					<view  class="fragment-header">爱奇艺</view>
+					<view id="aiqiyi" class="fragment" >
+						
+						<view v-for="(childitem,cindex) in item" :key="item.id">
+							<text>cindex</text>
+							<button class="fragment-item">1</button>
+							<view v-for="(childitem,cindex) in item" :key="item.id">
+							</view>
+						</view>
+					</view>
+				</view>
+				<view  v-if="index=='tenXunTvSearch'">
+					<view  class="fragment-header">芒果</view>
+					<view id="aiqiyi" class="fragment" >
+						1
+					</view>
+				</view>
+			</view> -->
+			
+			
+			
 			
 		</scroll-view>
 	</view>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState ,mapMutations} from 'vuex';
 import uniSearchBar from '@dcloudio/uni-ui/lib/uni-search-bar/uni-search-bar.vue';
 import uniDrawer from '@dcloudio/uni-ui/lib/uni-drawer/uni-drawer.vue';
 import uniList from '@dcloudio/uni-ui/lib/uni-list/uni-list.vue';
@@ -153,16 +145,15 @@ export default {
 		uniCard,
 		uniTag
 	},
-	computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
+	computed: mapState(['forcedLogin', 'hasLogin', 'userName','searchResult']),
 	onLoad() {
+		
+		// this.$http.get('http://www.baidu.com', {params: {userName: 'name', password: '123456'}}).then(res => {
+		// console.log(res)
+		// }).catch(err => {
+		// })
 		console.log("加载初始化")
-		this.$http.get('http://www.baidu.com', {params: {userName: 'name', password: '123456'}}).then(res => {
-		console.log(res)
-		}).catch(err => {
-		
-		})
-		
-		
+		this.search("庆余年");
 		
 		//      if (!this.hasLogin) {
 		//          uni.showModal({
@@ -192,6 +183,7 @@ export default {
 		//      }
 	},
 	methods: {
+		...mapMutations(['search']),
 		searchConfirm() {
 			console.log('searchConfirm');
 		},

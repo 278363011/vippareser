@@ -10,7 +10,8 @@ const store = new Vuex.Store({
          */
         forcedLogin: false,
         hasLogin: false,
-        userName: ""
+        userName: "", 
+		searchResult:Object
     },
     mutations: {
         login(state, userName) {
@@ -20,8 +21,34 @@ const store = new Vuex.Store({
         logout(state) {
             state.userName = "";
             state.hasLogin = false;
-        }
+        },
+		search(state,searchName){
+			uni.request({
+			    url: 'http://localhost:8080/search', //仅为示例，并非真实接口地址。
+			    data: {
+			        searchTeString: searchName
+			    },
+			    header: {
+			        'custom-header': 'hello' //自定义请求头信息
+			    },
+			    success: (res) => {
+					state.searchResult=res.data
+			    }
+			});
+		}
+		
     }
+,
+	getters:{
+		// calcuteResult(state, getters){
+		// 	let tempResult= state.searchResult;
+		// 	tempResult
+			
+		// }
+	}
+
+
+
 })
 
 export default store
