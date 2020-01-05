@@ -1,0 +1,77 @@
+
+.content-list {
+	height: 100%;
+	background: #ffffff;
+}
+.content {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	background-color: #efeff4;
+	padding: 0rpx;
+}
+.first {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	background-color: #efeff4;
+	padding: 0rpx;
+	height: 52px;
+}
+.checkLine {
+	background: #ffffff;
+	height: 52px;
+	line-height: 52px;
+	text-align: center;
+	padding: 0px;
+}
+.checkLineBtn {
+	background: #ffffff;
+	height: 25px;
+	line-height: 25px;
+	font-size: 14px;
+	padding: 4px;
+	color: #b0b0b0;
+	border: 1px solid #b0b0b0;
+	border-radius: 12px;
+}
+.fragment{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.fragment-header{
+	font-size: 16px;
+	margin: 20px;
+	border-bottom: 1px solid #B0B0B0;
+	padding-bottom: 10px;
+}
+.fragment-item{
+	display: inline-block;
+	margin: 5px;
+	background: #007AFF;
+	color: #FFFFFF;
+}
+
+
+

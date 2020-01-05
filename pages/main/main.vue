@@ -7,6 +7,21 @@
 		<uni-drawer :visible="drawvisible" @close="checkclose" mode="right">
 			<view style="padding:30rpx;">
 				<!-- 显示Switch -->
+				<!-- <uni-list>
+					<uni-list-item
+						:indexid="1"
+						@switchChange="itemswitch"
+						title="线路一"
+						note="切换线路一"
+						:show-extra-icon="true"
+						:extra-icon="{ color: '#4cd964', size: '22', type: 'spinner' }"
+						:show-switch="true"
+						:show-arrow="false"
+					></uni-list-item>
+				</uni-list> -->
+			<!-- <text>{{urls}}</text>
+			<view v-for="(item,index) in urls" :key="item.id">
+				
 				<uni-list>
 					<uni-list-item
 						:indexid="1"
@@ -19,66 +34,11 @@
 						:show-arrow="false"
 					></uni-list-item>
 				</uni-list>
-				<uni-list>
-					<uni-list-item
-						:indexid="2"
-						@switchChange="itemswitch"
-						title="线路二"
-						note="切换线路一"
-						:show-extra-icon="true"
-						:extra-icon="{ color: '#4cd964', size: '22', type: 'spinner' }"
-						:show-switch="true"
-						:show-arrow="false"
-					></uni-list-item>
-				</uni-list>
-				<uni-list>
-					<uni-list-item
-						:indexid="3"
-						@switchChange="itemswitch"
-						title="线路三"
-						note="切换线路一"
-						:show-extra-icon="true"
-						:extra-icon="{ color: '#4cd964', size: '22', type: 'spinner' }"
-						:show-switch="true"
-						:show-arrow="false"
-					></uni-list-item>
-				</uni-list>
-				<uni-list>
-					<uni-list-item
-						:indexid="4"
-						@switchChange="itemswitch"
-						title="线路四"
-						note="切换线路一"
-						:show-extra-icon="true"
-						:extra-icon="{ color: '#4cd964', size: '22', type: 'spinner' }"
-						:show-switch="true"
-						:show-arrow="false"
-					></uni-list-item>
-				</uni-list>
-				<uni-list>
-					<uni-list-item
-						:indexid="5"
-						@switchChange="itemswitch"
-						title="线路五"
-						note="切换线路一"
-						:show-extra-icon="true"
-						:extra-icon="{ color: '#4cd964', size: '22', type: 'spinner' }"
-						:show-switch="true"
-						:show-arrow="false"
-					></uni-list-item>
-				</uni-list>
-				<uni-list>
-					<uni-list-item
-						:indexid="6"
-						@switchChange="itemswitch"
-						title="线路六"
-						note="切换线路一"
-						:show-extra-icon="true"
-						:extra-icon="{ color: '#4cd964', size: '22', type: 'spinner' }"
-						:show-switch="true"
-						:show-arrow="false"
-					></uni-list-item>
-				</uni-list>
+			</view> -->
+			
+				
+			
+			
 			</view>
 		</uni-drawer>
 
@@ -94,26 +54,32 @@
 				<uni-tag text="无资源"></uni-tag>
 			</view> -->
 			
-		<!-- 	<view v-for="(item,index) in searchResult" :key="item.id">
+			<view v-for="(item,index) in searchResult" :key="item.id">
 				<view  v-if="index=='aiqiyiSearch'">
 					<view  class="fragment-header">爱奇艺</view>
-					<view id="aiqiyi" class="fragment" >
+					<view id="aiqiyi"  >
 						
-						<view v-for="(childitem,cindex) in item" :key="item.id">
-							<text>cindex</text>
-							<button class="fragment-item">1</button>
-							<view v-for="(childitem,cindex) in item" :key="item.id">
+						<view v-for="(childitem,cindex) in item" :key="childitem.id" >
+							<text>{{childitem.movieName}}</text>
+							<view class="fragment">
+									<view v-if="Array.isArray(childitem.movieData)" v-for="(sunzitem,sindex) in childitem.movieData" :key="sindex" >
+										<button class="fragment-item" :data-url="sunzitem.seriesHref" @click="playclick">{{sunzitem.seriesName}}</button>
+									</view>
+								<view v-if="!Array.isArray(childitem.movieData)">
+										<button class="fragment-item" :data-url="childitem.movieData.seriesHref" @click="playclick">{{childitem.movieData.seriesName}}</button>
+								</view>
 							</view>
+							
 						</view>
 					</view>
 				</view>
-				<view  v-if="index=='tenXunTvSearch'">
+			<!-- 	<view  v-if="index=='tenXunTvSearch'">
 					<view  class="fragment-header">芒果</view>
 					<view id="aiqiyi" class="fragment" >
 						1
 					</view>
-				</view>
-			</view> -->
+				</view> -->
+			</view>
 			
 			
 			
@@ -153,7 +119,8 @@ export default {
 		// }).catch(err => {
 		// })
 		console.log("加载初始化")
-		this.search("庆余年");
+		
+		// this.getUrls();
 		
 		//      if (!this.hasLogin) {
 		//          uni.showModal({
@@ -183,15 +150,15 @@ export default {
 		//      }
 	},
 	methods: {
-		...mapMutations(['search']),
+		...mapMutations(['search','getUrls']),
 		searchConfirm() {
 			console.log('searchConfirm');
 		},
 		searchInput() {
 			console.log('searchInput');
 		},
-		searchCancel() {
-			console.log('searchCancel');
+		searchCancel(e) {
+			this.search(e.value);
 		},
 		checkoutline() {
 			console.log('click checkout');
@@ -206,6 +173,11 @@ export default {
 		},
 		itemswitch(e, a) {
 			console.log(e);
+		},
+		playclick(e){
+			uni.navigateTo({
+				 url: '../play/play?url='+e.currentTarget.dataset.url
+			});
 		}
 	}
 };
@@ -263,6 +235,7 @@ export default {
 
 
 .fragment-item{
+	display: inline-block;
 	margin: 5px;
 	background: #007AFF;
 	color: #FFFFFF;
